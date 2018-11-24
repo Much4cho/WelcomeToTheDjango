@@ -274,6 +274,8 @@ pip-selfcheck.json
 # http://iamzed.com/2009/05/07/a-primer-on-virtualenv/
 
 ### VisualStudioCode ###
+.vs
+.vscode
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
