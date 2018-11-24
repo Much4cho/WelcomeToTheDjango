@@ -18,6 +18,7 @@ from django.contrib import admin
 from . import views
 urlpatterns = [
     url(r'^$', views.MainPage.as_view(), name='test'),
+    url('driver/', views.DriverPage.as_view(), name='driver'),
     url('admin/', admin.site.urls),
 ]
 
