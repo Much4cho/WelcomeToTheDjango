@@ -21,6 +21,7 @@ class Edge(models.Model):
     Height = models.DecimalField(max_digits=9, decimal_places=2, default=0)
     Width = models.DecimalField(max_digits=9, decimal_places=2, default=0)
     Weight = models.DecimalField(max_digits=9, decimal_places=2, default=0)
+    
 
     def __str__(self):
         return "{0} -> {1}".format(
