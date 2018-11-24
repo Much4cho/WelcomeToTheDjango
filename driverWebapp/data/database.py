@@ -8,7 +8,7 @@ import io
 from .models import Node
 
 def load_database():
-    file="/home/agnieszka/hackyeah/WelcomeToTheDjango/driverWebapp/coordinates.txt"
+    file= "/home/agnieszka/hackyeah/WelcomeToTheDjango/driverWebapp/data/coordinates.txt"
     with open(file) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         for row in csv_reader:
@@ -16,5 +16,3 @@ def load_database():
                 X=row[0],
                 Y=row[1],
             )
-
-
