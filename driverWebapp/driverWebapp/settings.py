@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'data',
 ]
 
 MIDDLEWARE = [
@@ -80,7 +82,7 @@ DATABASES = {
     }
 
     # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'ENGINE': 'django.db.backends.mysql',
     #     'USER': 'piotr.sulzycki@welcometothedjango-mysql'
     #     'PASSWORD': 'HUrDwqjldchEQXkgu1KO',
     #     'HOST': 'welcometothedjango-mysql.mysql.database.azure.com'
