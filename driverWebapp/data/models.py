@@ -8,7 +8,7 @@ class Node(models.Model):
 
     def __str__(self):
         return "{0} vs {1}".format(
-            self.x, self.y
+            self.X, self.Y
         )
     
 
