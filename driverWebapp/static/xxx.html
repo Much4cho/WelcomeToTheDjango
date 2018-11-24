@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Polyline path</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+    html, body, #map {
+      height: 100%;
+      width: 100%;
+    }
+</style>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnMaPct7gkvXk_XJ3WjCwe6JyMjZWDOJU" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+    var map;
+    var id;
+    var gmarkers = [];
+    var gmarkersicons = [];
+
+    function initMap() {
+
+      var mapOptions = {
+            zoom: 3,
+            mapTypeId: google.maps.MapTypeId.TERRAIN,
+            center: {lat: 9.291, lng: -157.821}
+        };
+      map = new google.maps.Map(document.getElementById("map"),
+                mapOptions);
+
+       var points = [
+         {lat: 37.772, lng: -122.214},
+         {lat: 21.291, lng: -157.821},
+         {lat: -18.142, lng: 178.431},
+         {lat: -27.467, lng: 153.027}
+       ];
+     var poly = new google.maps.Polyline({
+            path: points,
+            strokeColor: "red",
+            strokeOpacity: 1,
+            strokeWeight: 4,
+            recordNum: "test"
+        });
+
+        poly.setMap(map);
+
+        google.maps.event.addListener(poly, 'mouseover', function() {
+            var start = {
+                path: "M-20,0a20,20 0 1,0 40,0a20,20 0 1,0 -40,0",
+                fillColor: '#00ff00',
+                fillOpacity: 1,
+                strokeColor:'#000000',
+                strokeWeight: 4,
+                scale: 0.5
+            }
+            var end = {
+                path: "M-20,0a20,20 0 1,0 40,0a20,20 0 1,0 -40,0",
+                fillColor: '#FF0000',
+                fillOpacity: 1,
+                strokeColor:'#000000',
+                strokeWeight: 4,
+                scale: 0.5
+            }
+            var go = {
+                path: "M-20,0a20,20 0 1,0 40,0a20,20 0 1,0 -40,0",
+                fillColor: '#000000',
+                fillOpacity: 1,
+                strokeColor:'#fff',
+                strokeWeight: 4,
+                scale: 0.5
+            }
+            var markerStart = new google.maps.Marker({
+                position: poly.getPath().getAt(0),
+                icon: start,
+                map: map,
+                zIndex: 200,
+                scale: 1
+            });
+            gmarkers.push(markerStart);
+            var markerEnd = new google.maps.Marker({
+                position: poly.getPath().getAt(poly.getPath().getLength() - 1),
+                icon: end,
+                map: map,
+                zIndex: 200,
+                scale: 1
+            });
+            gmarkers.push(markerEnd);
+            var icons =  this.setOptions({
+            icons: [{
+                icon: {
+                    path: google.maps.SymbolPath.CIRCLE,
+                    strokeOpacity: 1,
+                    strokeColor: "#000000",
+                    strokeWeight: 2,
+                    scale: 4
+                },
+            }]});
+            this.setOptions({
+                strokeColor: "red",
+                scale: 1,
+                strokeWeight:15,
+                strokeOpacity:.6
+                });
+
+            var contentString = "Testing";
+            var infowindow = new google.maps.InfoWindow({
+                    content: contentString
+                });
+            infowindow.open(map, markerStart);
+            id = animateRoute(poly);
+        });
+
+        function animateRoute(line) {
+          var count = 0;
+          var id = window.setInterval(function() {
+            count = (count + 1) % 200;
+            var icons = poly.get('icons');
+            icons[0].offset = (count / 2) + '%';
+            poly.set('icons', icons);
+          }, 60);
+          return id;
+        }
+
+        google.maps.event.addListener(poly, 'mouseout', function() {
+            removeMarkers();
+            this.setOptions({strokeColor:"red",strokeWeight:4,strokeOpacity:1});
+            this.setOptions( { suppressMarkers: true } );
+            this.setOptions({
+            icons: [{}]});
+            window.clearInterval(id);
+        });
+
+
+     function removeMarkers(){
+       for(i=0; i<gmarkers.length; i++){
+         gmarkers[i].setMap(null);
+       }
+     }
+ }
+
+$(document).ready(function() {
+initMap();
+});
+
+    </script>
+  </head>
+  <body>
+    <div id="map"></div>
+  </body>
+</html>
