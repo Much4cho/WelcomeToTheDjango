@@ -13,7 +13,6 @@ class Node(models.Model):
         )
 
 
-
 class Edge(models.Model):
 
     StartingNode = models.ForeignKey(Node, related_name="StartingNode", on_delete=models.CASCADE)
