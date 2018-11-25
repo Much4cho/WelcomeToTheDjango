@@ -279,22 +279,27 @@ function find(start, end) {
     var weight = $('#weight').val()
     var turningRadius = $('#turningRadius').val()
     
-    if(height) {
-        alert('You need to fill height field.')
-        return
-    }
-    if(width) {
-        alert('You need to fill width field.')
-        return
-    }
-    if(weight) {
-        alert('You need to fill weight field.')
-        return
-    }
-    if(turningRadius) {
-        alert('You need to fill radius field.')
-        return
-    }
+    height = 0;
+    width = 0;
+    weight = 0;
+    turningRadius = 0;
+    
+//    if(height) {
+//        alert('You need to fill height field.')
+//        return
+//    }
+//    if(width) {
+//        alert('You need to fill width field.')
+//        return
+//    }
+//    if(weight) {
+//        alert('You need to fill weight field.')
+//        return
+//    }
+//    if(turningRadius) {
+//        alert('You need to fill radius field.')
+//        return
+//    }
     
     $.ajax({
         type: 'POST',
@@ -311,7 +316,7 @@ function find(start, end) {
 //            alert(data);
         },
         error: function () {
-            alert(-1);
+//            alert(-1);
         }
     });
 }

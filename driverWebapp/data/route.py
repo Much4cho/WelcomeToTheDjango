@@ -23,16 +23,15 @@ class DijkstraAlgorithm():
 
         distances[startNode] = 0
         nodes2 = self.graph.nodes;
-        print(nodes2)
-
 
         while nodes2:
             current_node = min(
                 nodes2, key=lambda node: distances[node])
-            nodes2.exclude(current_node)
+            nodes2.remove(current_node)
             if distances[current_node] == inf:
                 break
-            for neighbour, cost in self.graph.neighbours[current_node]:
+            
+            for neighbour, cost in self.graph.neighbours.get(current_node, []):
                 alternative_route = distances[current_node] + cost
                 print(distances[current_node])
                 print(cost)

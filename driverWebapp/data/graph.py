@@ -23,6 +23,8 @@ class Graph:
     def neighbours(self):
         neighbours = {node: set() for node in self.nodes}
         for edge in self.edges:
+            if edge.start not in neighbours:
+                neighbours[edge.start] = set()
             neighbours[edge.start].add((edge.end, edge.cost))
 
         return neighbours

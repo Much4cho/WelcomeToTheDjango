@@ -70,13 +70,18 @@ def take(request):
     radius = m.group(6)
     s = Node.objects.get(pk=start)
     e = Node.objects.get(pk=end)
-    nodes=Node.objects.all()
-    edges=Edge.objects.filter(Height__gte=height,Width__gte=width,Weight__gte=weight,IsClosed=False)
+    nodes=list(Node.objects.all())
+    edges=list(Edge.objects.filter(Height__gte=height,Width__gte=width,Weight__gte=weight,IsClosed=True))
+    
+    print(edges)
     graph=Graph(edges,nodes)
     #print(graph.edges)
     # print(graph.nodes)
     dijkstra=DijkstraAlgorithm(graph)
     path=dijkstra.findRoute(s,e)
-
+    
+    print("path")
+    print(path)
+    
     return HttpResponse(path)
 
