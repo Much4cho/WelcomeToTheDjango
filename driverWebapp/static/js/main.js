@@ -7,6 +7,33 @@ var edges = [];
 var first;
 var second;
 
+var flightPlanCoordinates = [
+    {
+        lng: 19.66229450809135,
+        lat: 52.57891009888033
+        },
+    {
+        lng: 19.66245442837345,
+        lat: 52.58279706574544
+        },
+    {
+        lng: 19.668291519149363,
+        lat: 52.58265131070942
+        },
+    {
+        lng: 19.66845143944829,
+        lat: 52.58512908043306
+        },
+    {
+        lng: 19.673249048298118,
+        lat: 52.58508049806318
+        },
+    {
+        lng: 19.67316908814871,
+        lat: 52.58328291237194
+        }
+        ];
+
 
 
 function initMap() {
@@ -16,14 +43,14 @@ function initMap() {
         origin: new google.maps.Point(0, 0), // origin
         anchor: new google.maps.Point(25, 25) // anchor
     };
-    
+
     node_icon = {
         url: "/static/img/node.svg", // url
         scaledSize: new google.maps.Size(20, 20), // scaled size
         origin: new google.maps.Point(0, 0), // origin
         anchor: new google.maps.Point(10, 10) // anchor
     };
-    
+
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 15,
         center: {
@@ -236,59 +263,58 @@ function initMap() {
 
     });
 
-//    map.addListener('click', function (event) {
-//        var latitude = event.latLng.lat();
-//        var longitude = event.latLng.lng();
-//        addVertex(latitude, longitude);
-//    });
+    //    map.addListener('click', function (event) {
+    //        var latitude = event.latLng.lat();
+    //        var longitude = event.latLng.lng();
+    //        addVertex(latitude, longitude);
+    //    });
 
     drawPath(flightPlanCoordinates);
-    
+
     verticiesPos.forEach(function (vertex) {
         addVertex(vertex.lat, vertex.lng, vertex.id);
     });
-    
-//    google.maps.event.addListener(map, 'zoom_changed', function() {
-//        var zoom = map.getZoom();
-//        markerWidth = (zoom/9)*20
-//        markerHeight = (zoom/9)*34
-//        vertices.forEach(function(vertex){
-//            var tmp = node_icon
-//            tmp.scaledSize = new google.maps.Size(markerWidth, markerHeight)
-//            vertex.setIcon(tmp);
-//        })
-//        
-//    });
-    
+
+    vertices.forEach(function (vertex) {
+        vertex.addListener('click', function (event) {
+            findPath(this)
+        });
+    })
 }
 
+function findPath(vertex) {
+    console.log(vertex)
+    if (first == undefined) {
+        first = vertex;
+        //        first.setIcon(tmp)
+    } else {
+        second = vertex;
 
-var flightPlanCoordinates = [
-    {
-        lng: 19.66229450809135,
-        lat: 52.57891009888033
+        find(first.base_id, second.base_id)
+
+        first = undefined;
+        second = undefined;
+    }
+}
+
+function find(start, end) {
+    $.ajax({
+        type: 'POST',
+        url: '/data/send/',
+        processData: true,
+        contentType: 'application/json\r\n',
+        data: {
+            'start': start,
+            'end': end
         },
-    {
-        lng: 19.66245442837345,
-        lat: 52.58279706574544
+        success: function (data) {
+            alert(data);
         },
-    {
-        lng: 19.668291519149363,
-        lat: 52.58265131070942
-        },
-    {
-        lng: 19.66845143944829,
-        lat: 52.58512908043306
-        },
-    {
-        lng: 19.673249048298118,
-        lat: 52.58508049806318
-        },
-    {
-        lng: 19.67316908814871,
-        lat: 52.58328291237194
+        error: function () {
+            alert(end);
         }
-        ];
+    });
+}
 
 function drawPath(vertices) {
     var flightPath = new google.maps.Polyline({
@@ -326,8 +352,8 @@ function addVertex(lat, lng, id) {
 
 function saveVertices() {
     var log = ""
-    vertices.forEach(function(vertex) {
-         log += vertex.getPosition().lng() + ", " + vertex.getPosition().lat() + "\n"
+    vertices.forEach(function (vertex) {
+        log += vertex.getPosition().lng() + ", " + vertex.getPosition().lat() + "\n"
     })
     console.log(log)
 }
@@ -336,7 +362,7 @@ function addEdges() {
     var tmp = node_icon
     tmp.scaledSize = new google.maps.Size(30, 30)
 
-    vertices.forEach(function(vertex) {
+    vertices.forEach(function (vertex) {
         vertex.addListener('click', function (event) {
             if (first == undefined) {
                 first = this;
@@ -344,20 +370,26 @@ function addEdges() {
             } else {
                 second = this;
                 var flightPlanCoordinates = [
-                  {lat: first.getPosition().lat(), lng: first.getPosition().lng()},
-                  {lat: second.getPosition().lat(), lng: second.getPosition().lng()},
+                    {
+                        lat: first.getPosition().lat(),
+                        lng: first.getPosition().lng()
+                                },
+                    {
+                        lat: second.getPosition().lat(),
+                        lng: second.getPosition().lng()
+                                },
                 ];
                 tmp.scaledSize = new google.maps.Size(25, 25)
                 first.setIcon(node_icon)
                 var flightPath = new google.maps.Polyline({
-                  path: flightPlanCoordinates,
-                  geodesic: true,
-                  strokeColor: '#FF0000',
-                  strokeOpacity: 1.0,
-                  strokeWeight: 2,
+                    path: flightPlanCoordinates,
+                    geodesic: true,
+                    strokeColor: '#FF0000',
+                    strokeOpacity: 1.0,
+                    strokeWeight: 2,
                     map: map,
                 });
-                
+
                 edges.push(first.base_id + "," + second.base_id)
                 console.log(edges)
                 first = undefined;
@@ -367,4 +399,3 @@ function addEdges() {
         });
     });
 }
-

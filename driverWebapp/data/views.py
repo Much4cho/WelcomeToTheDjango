@@ -27,7 +27,7 @@ def send(request):
     print(e)
     width=[4,5,6,2,3]
     height=[1,3,4,5,2]
-    available=[true,false]
+    available=[True,False]
     weight=[11,10,9,8,15]
 
     return HttpResponse("lol")
