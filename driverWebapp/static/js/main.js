@@ -273,6 +273,26 @@ function findPath(vertex) {
     }
 }
 
+function find(start, end) {
+    $.ajax({
+        type: 'POST',
+        url: '/data/take/',
+        processData: true,
+        contentType: 'application/json\r\n',
+        data: {
+            'start': start,
+            'end': end
+        },
+        success: function (data) {
+//            alert(data);
+        },
+        error: function () {
+            alert(-1);
+        }
+    });
+}
+
+
 function add_edge(start, end) {
     $.ajax({
         type: 'POST',
