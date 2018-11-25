@@ -7,7 +7,7 @@ import re
 import random
 from .graph import Graph
 from .route import DijkstraAlgorithm
-
+from django.core import serializers
 
 def index(request):
     my_dict = {'insert_me': "Hello I am data hehe"}
@@ -79,7 +79,7 @@ def take(request):
     # print(graph.nodes)
     dijkstra=DijkstraAlgorithm(graph)
     path=dijkstra.findRoute(s,e)
-    path = [p.id for p in path]
-    
-    return HttpResponse(path)
+    pathx = [str(p.id) for p in path]
+    print(pathx)
+    return HttpResponse(",".join(pathx))
 

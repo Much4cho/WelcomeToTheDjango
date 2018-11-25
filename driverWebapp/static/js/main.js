@@ -279,27 +279,22 @@ function find(start, end) {
     var weight = $('#weight').val()
     var turningRadius = $('#turningRadius').val()
     
-    height = 0;
-    width = 0;
-    weight = 0;
-    turningRadius = 0;
-    
-//    if(height) {
-//        alert('You need to fill height field.')
-//        return
-//    }
-//    if(width) {
-//        alert('You need to fill width field.')
-//        return
-//    }
-//    if(weight) {
-//        alert('You need to fill weight field.')
-//        return
-//    }
-//    if(turningRadius) {
-//        alert('You need to fill radius field.')
-//        return
-//    }
+    if(height) {
+        alert('You need to fill height field.')
+        return
+    }
+    if(width) {
+        alert('You need to fill width field.')
+        return
+    }
+    if(weight) {
+        alert('You need to fill weight field.')
+        return
+    }
+    if(turningRadius) {
+        alert('You need to fill radius field.')
+        return
+    }
     
     $.ajax({
         type: 'POST',
@@ -313,11 +308,19 @@ function find(start, end) {
             'radius': turningRadius,
         },
         success: function (data) {
-            alert(data)
-//            alert(data);
+            if (data)
+                drawPath(data.split(","))
+            else {
+                if (currentPath){
+                    currentPath.setMap(null)
+                }
+                alert("There's no path between selected nodes")
+                
+            }
+                
         },
         error: function () {
-//            alert(-1);
+            alert("There's no path between selected nodes")
         }
     });
 }
@@ -361,7 +364,9 @@ function drawPath(paht_v) {
             return v.base_id == paht_v[paht_v.length - 1]
         })
     console.log(path)
-    var flightPath = new google.maps.Polyline({
+    if (currentPath)
+        currentPath.setMap(null)
+    currentPath = new google.maps.Polyline({
         path: path,
         geodesic: true,
         strokeColor: '#007bff',
