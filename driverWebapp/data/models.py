@@ -6,11 +6,10 @@ class Node(models.Model):
 
     X = models.DecimalField(max_digits=9, decimal_places=3)
     Y = models.DecimalField(max_digits=9, decimal_places=3)
-    UID = models.IntegerField()
 
     def __str__(self):
-        return "({0}, {1}, {2})".format(
-            self.X, self.Y, self.UID
+        return "({0}, {1})".format(
+            self.X, self.Y
         )
 
 
