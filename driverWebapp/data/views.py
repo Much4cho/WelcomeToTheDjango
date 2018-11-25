@@ -5,7 +5,8 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 import re
 import random
-
+from .graph import Graph
+from .route import DijkstraAlgorithm
 
 
 def index(request):
@@ -27,12 +28,12 @@ def send(request):
     print(e)
     width=[4,5,6,2,3]
     height=[1,3,4,5,2]
-    available=[True,False,True,True,True,True,True]
+    available=[True,False,True,True,True,True,True,True,True,True,True,True]
     weight=[11,10,9,8,15]
 
     w=random.randint(0, 4)
     h = random.randint(0, 4)
-    a = random.randint(0, 6)
+    a = random.randint(0, 11)
     we = random.randint(0, 4)
     
     edges_repeated = Edge.objects.filter(StartingNode=s, EndingNode=e).exists()
@@ -52,4 +53,22 @@ def send(request):
 
     return HttpResponse("good")
 
+
+@csrf_exempt
+def take(request):
+    body_unicode = request.body.decode('utf-8')
+
+    pattern = r'start=(\d+)&end=(\d+)'
+    r = re.compile(pattern)
+    m = r.match(body_unicode)
+    start = m.group(1)
+    end = m.group(2)
+    s = Node.objects.get(pk=start)
+    e = Node.objects.get(pk=end)
+    edges=Edge.objects.filter(pub_date__year=2006)
+    graph=Graph(edges,nodes)
+    dijkstra=DijkstraAlgorithm(graph)
+    path=dijkstra.findRoute(s,e)
+
+    return HttpResponse(path)
 
