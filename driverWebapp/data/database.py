@@ -18,7 +18,7 @@ def load_database():
             )
 
 def load_edges():
-    file= "C:\Projects \Hackaton\Welcome to the Django\WelcomeToTheDjango\driverWebapp\data\edges.txt"
+    file= "F:\ADELA\MOJE\django\WelcomeToTheDjango\driverWebapp\data\edges.txt"
     with open(file) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         for row in csv_reader:
