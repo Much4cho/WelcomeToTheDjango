@@ -124,7 +124,7 @@
         
     
     {% for o in nodes %}
-        verticiesPos.push({lng: {{ o.X }},lat: {{ o.Y }}});
+        verticiesPos.push({lng: {{ o.X }},lat: {{ o.Y }}, id: {{ o.id }}});
     {% endfor %}
     console.log(verticiesPos)
 

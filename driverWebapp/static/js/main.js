@@ -240,7 +240,7 @@ function initMap() {
     drawPath(flightPlanCoordinates);
     
     verticiesPos.forEach(function (vertex) {
-        addVertex(vertex.lat, vertex.lng);
+        addVertex(vertex.lat, vertex.lng, vertex.id);
     });
     
 //    google.maps.event.addListener(map, 'zoom_changed', function() {
@@ -308,12 +308,13 @@ function drawPath(vertices) {
     });
 }
 
-function addVertex(lat, lng) {
+function addVertex(lat, lng, id) {
     var marker = new google.maps.Marker({
         position: new google.maps.LatLng(lat, lng),
         map: map,
         draggable:true,
         icon: node_icon,
+        title: "ID: " + id,
     });
     vertices.push(marker);
 }
