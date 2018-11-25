@@ -62,3 +62,7 @@ li.nav-item {
 .opened-window h2 {
     font-size: 20px;
 }
+
+.col-form-label {
+    font-size: 12px;
+}
