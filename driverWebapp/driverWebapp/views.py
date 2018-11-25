@@ -11,8 +11,5 @@ def index(request):
     return render(request, 'index.html', context=my_dict)
 
 
-def test(request):
-    my_dict = {'nodes': "nodes"}
-    return render(request, 'test.html', context=my_dict)
-
-
+class DriverPage(TemplateView):
+    template_name = 'driver.html'
