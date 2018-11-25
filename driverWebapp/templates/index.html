@@ -21,6 +21,29 @@
     <script src="/static/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
 
     <title>Welcome To The Django</title>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>
+            function find(start, end) {
+                $.ajax({
+                type: 'POST',
+                url: '/data/send/',
+                processData: true,
+                contentType: 'application/json\r\n',
+                data: { 'start':start, 'end':end},
+                success: function (data) {
+                    alert(data);
+                },
+                error: function() {
+                    alert(end);
+                }
+    });
+
+            }
+            </script>
+
+
+
 </head>
 
 <body>
@@ -70,6 +93,12 @@
                 <button onclick="saveVertices()">Zapisz</button>
                 <button onclick="addEdges()">Edges</button>
             </nav>
+
+                <button onclick="find(4,5);">
+    {%csrf_token%}
+            Api srapi
+        </button>
+
             <div class="d-flex flex-column fill flex-grow-1 main-panel">
                 <div class="row">
                     <div class="col top-action-bar ">
