@@ -1,4 +1,4 @@
-from graph import *
+from .graph import *
 
 from collections import namedtuple
 

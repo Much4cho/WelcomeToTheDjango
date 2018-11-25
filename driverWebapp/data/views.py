@@ -5,8 +5,8 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 import re
 import random
-from graph import Graph
-from route import DijkstraAlgorithm
+from .graph import Graph
+from .route import DijkstraAlgorithm
 
 
 def index(request):
@@ -65,7 +65,7 @@ def take(request):
     end = m.group(2)
     s = Node.objects.get(pk=start)
     e = Node.objects.get(pk=end)
-    nodes=
+    edges=Edge.objects.filter(pub_date__year=2006)
     graph=Graph(edges,nodes)
     dijkstra=DijkstraAlgorithm(graph)
     path=dijkstra.findRoute(s,e)
