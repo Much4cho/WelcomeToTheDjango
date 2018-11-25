@@ -8,4 +8,5 @@ urlpatterns=[
     url(r'^send/$', views.send, name='send'),
     url(r'^search/$', views.search, name='search'),
     url(r'^search2/$', views.search2, name='search2'),
+    url(r'^take/$', views.take, name='take'),
 ]

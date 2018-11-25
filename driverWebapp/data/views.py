@@ -57,20 +57,31 @@ def send(request):
 @csrf_exempt
 def take(request):
     body_unicode = request.body.decode('utf-8')
-
-    pattern = r'start=(\d+)&end=(\d+)'
+    print("KUPA")
+    print(body_unicode)
+    pattern = r'start=(\d+)&end=(\d+)&height=(\d+)&weight=(\d+)&width=(\d+)&radius=(\d+)'
     r = re.compile(pattern)
     m = r.match(body_unicode)
     start = m.group(1)
     end = m.group(2)
+    height = m.group(3)
+    weight = m.group(4)
+    width = m.group(5)
+    radius = m.group(6)
     s = Node.objects.get(pk=start)
     e = Node.objects.get(pk=end)
-    edges=Edge.objects.filter(pub_date__year=2006)
+    nodes=list(Node.objects.all())
+    edges=list(Edge.objects.filter(Height__gte=height,Width__gte=width,Weight__gte=weight,IsClosed=True))
+    
+    print(edges)
     graph=Graph(edges,nodes)
+    #print(graph.edges)
+    # print(graph.nodes)
     dijkstra=DijkstraAlgorithm(graph)
     path=dijkstra.findRoute(s,e)
-
-    return HttpResponse(path)
+    pathx = [str(p.id) for p in path]
+    print(pathx)
+    return HttpResponse(",".join(pathx))
 
 @csrf_exempt
 def search(request):

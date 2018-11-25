@@ -330,10 +330,19 @@ function find(start, end) {
             'radius': turningRadius,
         },
         success: function (data) {
-//            alert(data);
+            if (data)
+                drawPath(data.split(","))
+            else {
+                if (currentPath){
+                    currentPath.setMap(null)
+                }
+                alert("There's no path between selected nodes")
+                
+            }
+                
         },
         error: function () {
-            alert(-1);
+            alert("There's no path between selected nodes")
         }
     });
 }
@@ -405,7 +414,9 @@ function drawPath(paht_v) {
             return v.base_id == paht_v[paht_v.length - 1]
         })
     console.log(path)
-    var flightPath = new google.maps.Polyline({
+    if (currentPath)
+        currentPath.setMap(null)
+    currentPath = new google.maps.Polyline({
         path: path,
         geodesic: true,
         strokeColor: '#007bff',
