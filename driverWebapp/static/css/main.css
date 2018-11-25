@@ -12,6 +12,7 @@ body {
     height: 100%;
     margin: 0;
     padding: 0;
+    color: #223C66;
 }
 
 .main-container {
@@ -40,4 +41,24 @@ li.nav-item {
 }
 .leftmenu {
     padding: 20px;
+}
+
+.opened-window {
+    background: #fff;
+    margin: 30px 80px;
+    padding: 20px;
+    box-shadow: 1px 6px 15px #0000001f;
+}
+
+.windows {
+    align-items: stretch;
+}
+
+.box {
+    padding: 20px;
+    border: 1px solid #ddd;
+}
+
+.opened-window h2 {
+    font-size: 20px;
 }
