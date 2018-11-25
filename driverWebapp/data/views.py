@@ -53,3 +53,19 @@ def send(request):
     return HttpResponse("good")
 
 
+@csrf_exempt
+def take(request):
+    body_unicode = request.body.decode('utf-8')
+
+    pattern = r'start=(\d+)&end=(\d+)'
+    r = re.compile(pattern)
+    m = r.match(body_unicode)
+    start = m.group(1)
+    end = m.group(2)
+    s = Node.objects.get(pk=start)
+    e = Node.objects.get(pk=end)
+
+
+
+    return HttpResponse("good")
+
