@@ -20,5 +20,7 @@ urlpatterns = [
     url('driver/', views.DriverPage.as_view(), name='driver'),
     url(r'^$', views.index, name='index'),
     url('admin/', admin.site.urls),
+    url(r'^data/', include(('data.urls', 'data'), namespace='data')),
+
 ]
 
