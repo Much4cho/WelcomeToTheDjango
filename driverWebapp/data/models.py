@@ -13,6 +13,31 @@ class Node(models.Model):
         )
 
 
+class In(models.Model):
+
+    NodeIn = models.ForeignKey(Node, related_name="NodeIn", on_delete=models.CASCADE)
+    OnlyCars = models.BooleanField(default=False)
+
+
+    def __str__(self):
+        return "({0} -> {1})".format(
+            self.NodeIn, self.OnlyCars
+        )
+
+
+class Out(models.Model):
+
+    NodeOut = models.ForeignKey(Node, related_name="NodeOut", on_delete=models.CASCADE)
+    OnlyCars = models.BooleanField(default=False)
+
+
+    def __str__(self):
+        return "({0} -> {1})".format(
+            self.NodeOut, self.OnlyCars
+        )
+
+
+
 
 class Edge(models.Model):
 
@@ -27,3 +52,4 @@ class Edge(models.Model):
         return "{0} -> {1}".format(
             self.StartingNode, self.EndingNode
         )
+

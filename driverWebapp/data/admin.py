@@ -15,3 +15,15 @@ class EdgeAdmin(admin.ModelAdmin):
     list_display = ('id', 'StartingNode', 'EndingNode', 'IsClosed')
     # list_editable = ('status',)
 
+@admin.register(In)
+class InAdmin(admin.ModelAdmin):
+    pass
+    list_display = ('id', 'NodeIn', 'OnlyCars')
+    # list_editable = ('status',)
+
+@admin.register(Out)
+class OutAdmin(admin.ModelAdmin):
+    pass
+    list_display = ('id', 'NodeOut', 'OnlyCars')
+    # list_editable = ('status',)
+
