@@ -29,7 +29,19 @@ def send(request):
     height=[1,3,4,5,2]
     available=[True,False]
     weight=[11,10,9,8,15]
+    w=random.randint(0, 4)
+    h = random.randint(0, 4)
+    a = random.randint(0, 1)
+    we = random.randint(0, 4)
 
+    edge = Edge.objects.create(
+        StartingNode=s,
+        EndingNode=e,
+        IsClosed=available[a],
+        Height=height[h],
+        Width=width[w],
+        Weight=weight[we],
+    )
     return HttpResponse("lol")
 
 
