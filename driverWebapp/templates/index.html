@@ -69,6 +69,7 @@
                 </a>
                         </li>
                     </ul>
+                    
                 </div>
 <!--                <button onclick="saveVertices()">Zapisz</button>-->
 <!--                <button onclick="addEdges()">Edges</button>-->
@@ -126,6 +127,7 @@
 
     <script src="/static/js/vendor/bootstrap.min.js"></script>
     <script src="/static/js/main.js"></script>
+    <script src="/static/js/vendor/h2c.js"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnMaPct7gkvXk_XJ3WjCwe6JyMjZWDOJU&callback=initMap">
     </script>
 <script
@@ -171,7 +173,20 @@
     
 
 });
-    
+    function gmapPrint() {
+     
+      
+    var content = window.document.getElementById("map"); // get you map details
+//    var newWindow = window.open(); // open a new window
+//    newWindow.document.write(content.innerHTML); // write the map into the new window
+//    newWindow.document.write(currentPath); // write the map into the new window
+        content.getContext('2d');
+        window.open('', document.getElementById('map').toDataURL());
+
+//    newWindow.print(); // print the new window
+        
+
+}
     </script>
 </body>
 

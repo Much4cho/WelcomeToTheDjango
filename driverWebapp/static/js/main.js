@@ -336,23 +336,24 @@ function find(start, end) {
                 if (currentPath){
                     currentPath.setMap(null)
                 }
-                alert("There's no path between selected nodes")
+                
                 first = undefined;
                 second = undefined;
                 vertices.forEach(function (vertex) {
                     vertex.setIcon(node_icon)   
                 })
-                
+                alert("There's no path between selected nodes")
             }
                 
         },
         error: function () {
-            alert("There's no path between selected nodes")
+            
             first = undefined;
-        second = undefined;
-        vertices.forEach(function (vertex) {
-            vertex.setIcon(node_icon)   
-        })
+            second = undefined;
+            vertices.forEach(function (vertex) {
+                vertex.setIcon(node_icon)   
+            })
+            alert("There's no path between selected nodes")
         }
     });
 }
