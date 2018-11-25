@@ -236,11 +236,11 @@ function initMap() {
 
     });
 
-    map.addListener('click', function (event) {
-        var latitude = event.latLng.lat();
-        var longitude = event.latLng.lng();
-        addVertex(latitude, longitude);
-    });
+//    map.addListener('click', function (event) {
+//        var latitude = event.latLng.lat();
+//        var longitude = event.latLng.lng();
+//        addVertex(latitude, longitude);
+//    });
 
     drawPath(flightPlanCoordinates);
     
