@@ -2,6 +2,11 @@ var map;
 var vertices = [];
 var node_icon;
 var path_icon;
+var edges = [];
+
+var first;
+var second;
+
 
 
 function initMap() {
@@ -231,16 +236,16 @@ function initMap() {
 
     });
 
-    map.addListener('click', function (event) {
-        var latitude = event.latLng.lat();
-        var longitude = event.latLng.lng();
-        addVertex(latitude, longitude);
-    });
+//    map.addListener('click', function (event) {
+//        var latitude = event.latLng.lat();
+//        var longitude = event.latLng.lng();
+//        addVertex(latitude, longitude);
+//    });
 
     drawPath(flightPlanCoordinates);
     
     verticiesPos.forEach(function (vertex) {
-        addVertex(vertex.lat, vertex.lng);
+        addVertex(vertex.lat, vertex.lng, vertex.id);
     });
     
 //    google.maps.event.addListener(map, 'zoom_changed', function() {
@@ -308,12 +313,13 @@ function drawPath(vertices) {
     });
 }
 
-function addVertex(lat, lng) {
+function addVertex(lat, lng, id) {
     var marker = new google.maps.Marker({
         position: new google.maps.LatLng(lat, lng),
         map: map,
-        draggable:true,
         icon: node_icon,
+        title: "ID: " + id,
+        base_id: id,
     });
     vertices.push(marker);
 }
@@ -325,3 +331,40 @@ function saveVertices() {
     })
     console.log(log)
 }
+
+function addEdges() {
+    var tmp = node_icon
+    tmp.scaledSize = new google.maps.Size(30, 30)
+
+    vertices.forEach(function(vertex) {
+        vertex.addListener('click', function (event) {
+            if (first == undefined) {
+                first = this;
+                first.setIcon(tmp)
+            } else {
+                second = this;
+                var flightPlanCoordinates = [
+                  {lat: first.getPosition().lat(), lng: first.getPosition().lng()},
+                  {lat: second.getPosition().lat(), lng: second.getPosition().lng()},
+                ];
+                tmp.scaledSize = new google.maps.Size(25, 25)
+                first.setIcon(node_icon)
+                var flightPath = new google.maps.Polyline({
+                  path: flightPlanCoordinates,
+                  geodesic: true,
+                  strokeColor: '#FF0000',
+                  strokeOpacity: 1.0,
+                  strokeWeight: 2,
+                    map: map,
+                });
+                
+                edges.push(first.base_id + "," + second.base_id)
+                console.log(edges)
+                first = undefined;
+                second = undefined;
+
+            }
+        });
+    });
+}
+
