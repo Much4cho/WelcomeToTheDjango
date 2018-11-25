@@ -33,9 +33,9 @@ body {
 .top-action-bar {
     background: #fff;
     margin: 30px 80px;
-    padding: 12px 20px;
+    padding: 0;
     box-shadow: 1px 6px 15px #0000001f;
-    border-radius: 10px;
+    border-radius: 100px;
 }
 li.nav-item {
     margin-bottom: 20px;
@@ -47,7 +47,7 @@ li.nav-item {
 .opened-window {
     background: #fff;
     margin: 30px 80px;
-    padding: 20px;
+    padding: 0;
     box-shadow: 1px 6px 15px #0000001f;
 }
 
@@ -99,5 +99,10 @@ li.nav-item {
   color: #ffffff; 
 }
 .form-control{
-    border: 1px solid #3d9afe;
+    border: none;
+    padding: 30px 30px;
+    margin 0;
+}
+.form-group {
+    margin: 0;
 }

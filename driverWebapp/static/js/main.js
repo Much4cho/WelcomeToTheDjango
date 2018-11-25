@@ -337,12 +337,22 @@ function find(start, end) {
                     currentPath.setMap(null)
                 }
                 alert("There's no path between selected nodes")
+                first = undefined;
+                second = undefined;
+                vertices.forEach(function (vertex) {
+                    vertex.setIcon(node_icon)   
+                })
                 
             }
                 
         },
         error: function () {
             alert("There's no path between selected nodes")
+            first = undefined;
+        second = undefined;
+        vertices.forEach(function (vertex) {
+            vertex.setIcon(node_icon)   
+        })
         }
     });
 }

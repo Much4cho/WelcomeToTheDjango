@@ -59,7 +59,7 @@ def take(request):
     body_unicode = request.body.decode('utf-8')
     print("KUPA")
     print(body_unicode)
-    pattern = r'start=(\d+)&end=(\d+)&height=(\d+)&weight=(\d+)&width=(\d+)&radius=(\d+)'
+    pattern = r'start=(.*)&end=(.*)&height=(.*).*&weight=(.*)&width=(.*)&radius=(.*)'
     r = re.compile(pattern)
     m = r.match(body_unicode)
     start = m.group(1)
