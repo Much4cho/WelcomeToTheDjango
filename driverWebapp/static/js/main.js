@@ -239,7 +239,7 @@ function initMap() {
 
     drawPath(flightPlanCoordinates);
     
-    vertices_pos.forEach(function (vertex) {
+    verticiesPos.forEach(function (vertex) {
         addVertex(vertex.lat, vertex.lng);
     });
     
@@ -312,7 +312,16 @@ function addVertex(lat, lng) {
     var marker = new google.maps.Marker({
         position: new google.maps.LatLng(lat, lng),
         map: map,
+        draggable:true,
         icon: node_icon,
     });
     vertices.push(marker);
+}
+
+function saveVertices() {
+    var log = ""
+    vertices.forEach(function(vertex) {
+         log += vertex.getPosition().lng() + ", " + vertex.getPosition().lat() + "\n"
+    })
+    console.log(log)
 }

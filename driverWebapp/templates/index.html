@@ -67,10 +67,27 @@
                         </li>
                     </ul>
                 </div>
+                <button onclick="saveVertices()">Zapisz</button>
             </nav>
             <div class="d-flex flex-column fill flex-grow-1 main-panel">
                 <div class="row">
-                    <div class="col top-action-bar ">{{ insert_me }}</div>
+                    <div class="col top-action-bar ">
+                        <form>
+                      <div class="form-group row">
+                        <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+                        <div class="col-sm-10">
+                          <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="email@example.com">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+                        <div class="col-sm-10">
+                          <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                        </div>
+                      </div>
+                    </form>
+                        
+                    </div>
                 </div>
 <!--
                 <div class="row windows">
@@ -99,12 +116,17 @@
 
 
     </script>
+     {% for o in nodes %}
+       {{ o.X }}
+    {% endfor %}
     <script>
     var verticiesPos = [];
+        
+    
     {% for o in nodes %}
         verticiesPos.push({lng: {{ o.X }},lat: {{ o.Y }}});
     {% endfor %}
-
+    console.log(verticiesPos)
 
     </script>
 
