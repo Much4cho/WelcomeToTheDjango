@@ -20,6 +20,7 @@ class DijkstraAlgorithm():
 
 
 
+
         distances[startNode] = 0
         nodes2 = self.graph.nodes;
         print(nodes2)
