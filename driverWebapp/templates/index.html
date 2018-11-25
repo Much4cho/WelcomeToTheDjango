@@ -29,7 +29,7 @@
                 type: 'POST',
                 url: '/data/send/',
                 processData: true,
-                contentType: 'json',
+                contentType: 'application/json\r\n',
                 data: { 'start':start, 'end':end},
                 success: function (data) {
                     alert(data);
