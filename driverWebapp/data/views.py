@@ -7,7 +7,7 @@ import re
 import random
 from .graph import Graph
 from .route import DijkstraAlgorithm
-
+from django.core import serializers
 
 def index(request):
     my_dict = {'insert_me': "Hello I am data hehe"}
@@ -72,3 +72,31 @@ def take(request):
 
     return HttpResponse(path)
 
+@csrf_exempt
+def search(request):
+    body_unicode = request.body.decode('utf-8')
+
+
+    objects = Car.objects.all()
+    print(serializers.serialize('json', list(objects), fields=('Registration','Weight')))
+
+    return HttpResponse(serializers.serialize('json', list(objects), fields=('Registration','Weight')))
+ 
+
+@csrf_exempt
+def search2(request):
+    body_unicode = request.body.decode('utf-8')
+
+    pattern = r'search=(.+)'
+    r = re.compile(pattern)
+    m = r.match(body_unicode)
+    if(m):
+        search = m.group(1)
+        search = search.replace("+", " ")
+        print(search)
+        objects = Car.objects.filter(Registration=search)
+        print(serializers.serialize('json', list(objects), fields=('Registration','Weight','Height','TurnAxis')))
+        
+        return HttpResponse(serializers.serialize('json', list(objects), fields=('Registration','Weight','Height','TurnAxis', 'Width')))
+    
+    return HttpResponse()

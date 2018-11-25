@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="/static/css/bootstrap.min.css">
     <link rel="stylesheet" href="/static/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
     <script src="/static/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
 
@@ -27,7 +28,7 @@
 
 <body>
     <div class="main-container d-flex container-fluid fill">
-        <div class="flex-row row fill d-flex flex-grow-1">
+        <div class="flex-row row fill d-flex flex-grow-1" style="flex-wrap: nowrap">
             <nav class="d-flex flex-column d-md-block bg-light sidebar leftmenu fill">
                 <div class="sidebar-sticky">
                     <ul class="nav flex-column">
@@ -78,27 +79,33 @@
                     <div class="col top-action-bar ">
                         <form class="row">
                       <div class="form-group col">
+                        <label for="registration" class="col-sm-2 col-form-label">Registration</label>
+                        <div class="col-sm-12 autocomplete">
+                          <input type="text" class="form-control" id="registration" placeholder="Registration" onchange="fill()">
+                        </div>
+                      </div> 
+                       <div class="form-group col">
                         <label for="weight" class="col-sm-2 col-form-label">Weight</label>
                         <div class="col-sm-12">
-                          <input type="text" class="form-control" id="weight" placeholder="Weight">
+                          <input type="text" class="form-control" id="weight" placeholder="Weight" required>
                         </div>
                       </div> 
                        <div class="form-group col">
                         <label for="height" class="col-sm-2 col-form-label">Height</label>
                         <div class="col-sm-12">
-                          <input type="text" class="form-control" id="height" placeholder="Height">
+                          <input type="text" class="form-control" id="height" placeholder="Height" required>
                         </div>
                       </div>
                        <div class="form-group col">
                         <label for="width" class="col-sm-2 col-form-label">Width</label>
                         <div class="col-sm-12">
-                          <input type="text" class="form-control" id="width" placeholder="Width">
+                          <input type="text" class="form-control" id="width" placeholder="Width" required>
                         </div>
                       </div>
                        <div class="form-group col">
                         <label for="turningRadius" class="col col-form-label">Turning radius</label>
                         <div class="col-sm-12">
-                          <input type="text" class="form-control" id="turningRadius" placeholder="Turning radius">
+                          <input type="text" class="form-control" id="turningRadius" placeholder="Turning radius" required>
                         </div>
                       </div>
                     </form>
@@ -125,10 +132,11 @@
     <script src="/static/js/vendor/bootstrap.min.js"></script>
     <script src="/static/js/main.js"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnMaPct7gkvXk_XJ3WjCwe6JyMjZWDOJU&callback=initMap">
-
-
     </script>
-
+<script
+  src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+  integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+  crossorigin="anonymous"></script>
     <script>
     var verticiesPos = [];
         
@@ -136,7 +144,39 @@
     {% for o in nodes %}
         verticiesPos.push({lng: {{ o.X }},lat: {{ o.Y }}, id: {{ o.id }}});
     {% endfor %}
+    
+    $( document ).ready(function() {
+  var availableTags = [];
+    
+    
+     $.ajax({
+        type: 'POST',
+        url: '/data/search/',
+        data: {
+            'search': "k",
+        },
+        success: function (data) {
+            data = JSON.parse(data)
+            console.log("data", data)
+            data.forEach(function(d){
+                availableTags.push(d.fields.Registration)
+            })
+            console.log(availableTags)
+ $('#registration').autocomplete({ source: availableTags, minLength: 1, select: function(){fill();} });
+        },
+        error: function (data) {
+            console.log();
+        }
+    });
+        
+        $('#registration').on('autocompleteSelect', function(event, node) {
+                fill();
+});
+    
+    
 
+});
+    
     </script>
 </body>
 

@@ -24,10 +24,10 @@ function initMap() {
     };
 
     map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 15,
+        zoom: 14,
         center: {
-            lng: 19.6741906,
-            lat: 52.5834097
+            lng: 19.683546,
+            lat: 52.590762,
         },
         disableDefaultUI: true,
         styles: [
@@ -252,7 +252,9 @@ function initMap() {
             findPath(this)
         });
     })
+    
 }
+
 
 function findPath(vertex) {
     if (first == undefined) {
@@ -279,20 +281,40 @@ function find(start, end) {
     var weight = $('#weight').val()
     var turningRadius = $('#turningRadius').val()
     
-    if(height) {
+    if(!height) {
         alert('You need to fill height field.')
+        first = undefined;
+        second = undefined;
+        vertices.forEach(function (vertex) {
+            vertex.setIcon(node_icon)   
+        })
         return
     }
-    if(width) {
+    if(!width) {
         alert('You need to fill width field.')
+        first = undefined;
+        second = undefined;
+        vertices.forEach(function (vertex) {
+            vertex.setIcon(node_icon)   
+        })
         return
     }
-    if(weight) {
+    if(!weight) {
         alert('You need to fill weight field.')
+        first = undefined;
+        second = undefined;
+        vertices.forEach(function (vertex) {
+            vertex.setIcon(node_icon)   
+        })
         return
     }
-    if(turningRadius) {
+    if(!turningRadius) {
         alert('You need to fill radius field.')
+        first = undefined;
+        second = undefined;
+        vertices.forEach(function (vertex) {
+            vertex.setIcon(node_icon)   
+        })
         return
     }
     
@@ -315,6 +337,34 @@ function find(start, end) {
         }
     });
 }
+
+function fill() {
+    var registration = $('#registration').val()
+    $.ajax({
+        type: 'POST',
+        url: '/data/search2/',
+        data: {
+            'search': registration,
+        },
+        success: function (data) {
+            data = JSON.parse(data)
+            console.log("data", data)
+            if(data.length == 1) {
+                if(data[0].fields) {
+                    
+                $('#height').val(data[0].fields.Height)
+                $('#width').val(data[0].fields.Width)
+                $('#weight').val(data[0].fields.Weight)
+                $('#turningRadius').val(data[0].fields.TurnAxis)
+                }
+            }
+        },
+        error: function (data) {
+            console.log();
+        }
+    });
+}
+
 
 
 function add_edge(start, end) {
