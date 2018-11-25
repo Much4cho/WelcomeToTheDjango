@@ -8,30 +8,7 @@ var first;
 var second;
 
 var flightPlanCoordinates = [
-    {
-        lng: 19.66229450809135,
-        lat: 52.57891009888033
-        },
-    {
-        lng: 19.66245442837345,
-        lat: 52.58279706574544
-        },
-    {
-        lng: 19.668291519149363,
-        lat: 52.58265131070942
-        },
-    {
-        lng: 19.66845143944829,
-        lat: 52.58512908043306
-        },
-    {
-        lng: 19.673249048298118,
-        lat: 52.58508049806318
-        },
-    {
-        lng: 19.67316908814871,
-        lat: 52.58328291237194
-        }
+    147, 157
         ];
 
 
@@ -46,9 +23,9 @@ function initMap() {
 
     node_icon = {
         url: "/static/img/node.svg", // url
-        scaledSize: new google.maps.Size(20, 20), // scaled size
+        scaledSize: new google.maps.Size(12, 12), // scaled size
         origin: new google.maps.Point(0, 0), // origin
-        anchor: new google.maps.Point(10, 10) // anchor
+        anchor: new google.maps.Point(6, 6) // anchor
     };
 
     map = new google.maps.Map(document.getElementById('map'), {
@@ -269,11 +246,13 @@ function initMap() {
     //        addVertex(latitude, longitude);
     //    });
 
-    drawPath(flightPlanCoordinates);
+   
 
     verticiesPos.forEach(function (vertex) {
         addVertex(vertex.lat, vertex.lng, vertex.id);
     });
+    
+     drawPath(flightPlanCoordinates);
 
 //    vertices.forEach(function (vertex) {
 //        vertex.addListener('click', function (event) {
@@ -283,7 +262,6 @@ function initMap() {
 }
 
 function findPath(vertex) {
-    console.log(vertex)
     if (first == undefined) {
         first = vertex;
         //        first.setIcon(tmp)
@@ -316,9 +294,27 @@ function add_edge(start, end) {
     });
 }
 
-function drawPath(vertices) {
+function drawPath(paht_v) {
+    var path = []
+    
+    paht_v.forEach(function(vertex){
+        var v = vertices.find(function(v,n,a){
+            return v.base_id == vertex
+        })
+        
+        path.push({lat: v.getPosition().lat(), lng: v.getPosition().lng()})
+    })
+    
+    var first = vertices.find(function(v,n,a){
+            return v.base_id == paht_v[0]
+        })
+    
+    var last = vertices.find(function(v,n,a){
+            return v.base_id == paht_v[paht_v.length - 1]
+        })
+    console.log(path)
     var flightPath = new google.maps.Polyline({
-        path: vertices,
+        path: path,
         geodesic: true,
         strokeColor: '#007bff',
         strokeOpacity: 1.0,
@@ -326,17 +322,9 @@ function drawPath(vertices) {
         map: map,
     });
 
-    // first and last vertex img
-    var marker = new google.maps.Marker({
-        position: flightPlanCoordinates[0],
-        map: map,
-        icon: path_icon,
-    });
-    var marker = new google.maps.Marker({
-        position: flightPlanCoordinates[flightPlanCoordinates.length - 1],
-        map: map,
-        icon: path_icon,
-    });
+    first.setIcon(path_icon)
+    last.setIcon(path_icon)
+    
 }
 
 function addVertex(lat, lng, id) {
@@ -355,7 +343,6 @@ function saveVertices() {
     vertices.forEach(function (vertex) {
         log += vertex.getPosition().lng() + ", " + vertex.getPosition().lat() + "\n"
     })
-    console.log(log)
 }
 
 function addEdges() {
@@ -398,7 +385,7 @@ function addEdges() {
                 });
                 add_edge(first.base_id, second.base_id)
                 edges.push(first.base_id + "," + second.base_id)
-                console.log(edges)
+
                 first = undefined;
                 second = undefined;
 
