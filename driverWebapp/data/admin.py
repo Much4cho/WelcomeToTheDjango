@@ -6,7 +6,7 @@ from .models import *
 class NodeAdmin(admin.ModelAdmin):
     pass
     list_display = ('id', 'X', 'Y')
-    # list_editable = ('status',)
+    list_editable = ('X', 'Y')
 
 
 @admin.register(Edge)
