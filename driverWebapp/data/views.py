@@ -4,7 +4,7 @@ from .models import *
 from django.views.decorators.csrf import csrf_exempt
 import json
 import re
-from random import randint
+import random
 
 
 
@@ -29,6 +29,7 @@ def send(request):
     height=[1,3,4,5,2]
     available=[True,False]
     weight=[11,10,9,8,15]
+
     w=random.randint(0, 4)
     h = random.randint(0, 4)
     a = random.randint(0, 1)
@@ -42,6 +43,10 @@ def send(request):
         Width=width[w],
         Weight=weight[we],
     )
+
+
+
+
     return HttpResponse("lol")
 
 
