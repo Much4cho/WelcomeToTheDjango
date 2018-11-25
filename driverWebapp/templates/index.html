@@ -89,6 +89,15 @@
 
 
     </script>
+    <script>
+    var verticiesPos = [];
+    {% for o in nodes %}
+        verticiesPos.push({lng: {{ o.X }},lat: {{ o.Y }}});
+    {% endfor %}
+
+
+    </script>
+
 </body>
 
 </html>
