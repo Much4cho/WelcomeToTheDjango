@@ -278,6 +278,24 @@ function find(start, end) {
     var width = $('#width').val()
     var weight = $('#weight').val()
     var turningRadius = $('#turningRadius').val()
+    
+    if(height) {
+        alert('You need to fill height field.')
+        return
+    }
+    if(width) {
+        alert('You need to fill width field.')
+        return
+    }
+    if(weight) {
+        alert('You need to fill weight field.')
+        return
+    }
+    if(turningRadius) {
+        alert('You need to fill radius field.')
+        return
+    }
+    
     $.ajax({
         type: 'POST',
         url: '/data/take/',
