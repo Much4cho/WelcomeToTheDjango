@@ -279,8 +279,6 @@ function find(start, end) {
     $.ajax({
         type: 'POST',
         url: '/data/take/',
-        processData: true,
-        contentType: 'application/json\r\n',
         data: {
             'start': start,
             'end': end
@@ -299,11 +297,9 @@ function add_edge(start, end) {
     $.ajax({
         type: 'POST',
         url: '/data/send/',
-        processData: true,
-        contentType: 'application/json\r\n',
         data: {
-            'start': start,
-            'end': end
+            start: start,
+            end: end
         },
         success: function (data) {
 //            alert(data);
