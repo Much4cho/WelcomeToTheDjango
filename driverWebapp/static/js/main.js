@@ -274,14 +274,20 @@ function findPath(vertex) {
 }
 
 function find(start, end) {
+    var height = $('#height').val()
+    var width = $('#width').val()
+    var weight = $('#weight').val()
+    var turningRadius = $('#turningRadius').val()
     $.ajax({
         type: 'POST',
         url: '/data/take/',
-        processData: true,
-        contentType: 'application/json\r\n',
         data: {
             'start': start,
-            'end': end
+            'end': end,
+            'height': height,
+            'weight': weight,
+            'width': width,
+            'radius': turningRadius,
         },
         success: function (data) {
 //            alert(data);
