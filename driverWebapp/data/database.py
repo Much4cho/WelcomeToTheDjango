@@ -9,7 +9,7 @@ from .models import *
 
 def load_database():
     Node.objects.all().delete()
-    file= "/home/agnieszka/hackyeah/WelcomeToTheDjango/driverWebapp/data/coordinates.txt"
+    file= "data/coordinates.txt"
     with open(file) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         for row in csv_reader:
@@ -19,7 +19,7 @@ def load_database():
             )
 
 def load_edges():
-    file= "F:\ADELA\MOJE\django\WelcomeToTheDjango\driverWebapp\data\edges.txt"
+    file= "data/edges.txt"
     with open(file) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         for row in csv_reader:
