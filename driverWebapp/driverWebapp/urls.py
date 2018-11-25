@@ -17,8 +17,8 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from . import views
 urlpatterns = [
-    url(r'^$', views.MainPage.as_view(), name='test'),
     url('driver/', views.DriverPage.as_view(), name='driver'),
+    url(r'^$', views.index, name='index'),
     url('admin/', admin.site.urls),
 ]
 
