@@ -102,6 +102,7 @@ li.nav-item {
     border: none;
     padding: 30px 30px;
     margin 0;
+    border-radius: 0;
 }
 .form-group {
     margin: 0;
