@@ -35,9 +35,9 @@ def send(request):
     a = random.randint(0, 1)
     we = random.randint(0, 4)
     
-    edges_repeat = Edge.objects.get(StartingNode=s, EndingNode=e)
+    edges_repeated = Edge.objects.filter(StartingNode=s, EndingNode=e).exists()
     
-    if not edges_repeat:
+    if not edges_repeated:
         edge = Edge.objects.create(
             StartingNode=s,
             EndingNode=e,

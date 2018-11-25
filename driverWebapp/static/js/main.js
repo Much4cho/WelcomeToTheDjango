@@ -308,10 +308,10 @@ function add_edge(start, end) {
             'end': end
         },
         success: function (data) {
-            alert(data);
+//            alert(data);
         },
         error: function () {
-            alert(end);
+            alert(-1);
         }
     });
 }
