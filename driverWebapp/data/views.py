@@ -34,19 +34,22 @@ def send(request):
     h = random.randint(0, 4)
     a = random.randint(0, 1)
     we = random.randint(0, 4)
+    
+    edges_repeat = Edge.objects.get(StartingNode=s, EndingNode=e)
+    
+    if not edges_repeat:
+        edge = Edge.objects.create(
+            StartingNode=s,
+            EndingNode=e,
+            IsClosed=available[a],
+            Height=height[h],
+            Width=width[w],
+            Weight=weight[we],
+        )
+    else:
+        return HttpResponse("repeat")
 
-    edge = Edge.objects.create(
-        StartingNode=s,
-        EndingNode=e,
-        IsClosed=available[a],
-        Height=height[h],
-        Width=width[w],
-        Weight=weight[we],
-    )
 
-
-
-
-    return HttpResponse("lol")
+    return HttpResponse("good")
 
 

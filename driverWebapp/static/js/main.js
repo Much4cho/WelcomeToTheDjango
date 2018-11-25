@@ -275,11 +275,11 @@ function initMap() {
         addVertex(vertex.lat, vertex.lng, vertex.id);
     });
 
-    vertices.forEach(function (vertex) {
-        vertex.addListener('click', function (event) {
-            findPath(this)
-        });
-    })
+//    vertices.forEach(function (vertex) {
+//        vertex.addListener('click', function (event) {
+//            findPath(this)
+//        });
+//    })
 }
 
 function findPath(vertex) {
@@ -297,7 +297,7 @@ function findPath(vertex) {
     }
 }
 
-function find(start, end) {
+function add_edge(start, end) {
     $.ajax({
         type: 'POST',
         url: '/data/send/',
@@ -369,6 +369,13 @@ function addEdges() {
                 first.setIcon(tmp)
             } else {
                 second = this;
+                if(first.base_id == second.base_id) {
+                    first = undefined;
+                    second = undefined;
+                    return;
+                }
+                
+                
                 var flightPlanCoordinates = [
                     {
                         lat: first.getPosition().lat(),
@@ -389,7 +396,7 @@ function addEdges() {
                     strokeWeight: 2,
                     map: map,
                 });
-
+                add_edge(first.base_id, second.base_id)
                 edges.push(first.base_id + "," + second.base_id)
                 console.log(edges)
                 first = undefined;
