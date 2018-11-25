@@ -27,3 +27,6 @@ class OutAdmin(admin.ModelAdmin):
     list_display = ('id', 'NodeOut', 'OnlyCars')
     # list_editable = ('status',)
 
+@admin.register(Car)
+class CarAdmin(admin.ModelAdmin):
+    list_display = ('id','Weight','Height','Width','Registration','TurnAxis')

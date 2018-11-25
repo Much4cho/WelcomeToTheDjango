@@ -53,3 +53,11 @@ class Edge(models.Model):
             self.StartingNode, self.EndingNode
         )
 
+class Car(models.Model):
+
+    Weight = models.DecimalField(max_digits=9, decimal_places=2, default=0)
+    Height = models.DecimalField(max_digits=9, decimal_places=2, default=0)
+    Width = models.DecimalField(max_digits=9, decimal_places=2, default=0)
+    Registration = models.CharField(max_length=10)
+    TurnAxis = models.DecimalField(max_digits=9, decimal_places=2, default=0)
+
