@@ -65,7 +65,7 @@ def take(request):
     end = m.group(2)
     s = Node.objects.get(pk=start)
     e = Node.objects.get(pk=end)
-    edges=Edge.objects.filter(pub_date__year=2006)
+   # edges=Edge.objects.filter(=2006)
     graph=Graph(edges,nodes)
     dijkstra=DijkstraAlgorithm(graph)
     path=dijkstra.findRoute(s,e)
