@@ -313,6 +313,7 @@ function find(start, end) {
             'radius': turningRadius,
         },
         success: function (data) {
+            alert(data)
 //            alert(data);
         },
         error: function () {

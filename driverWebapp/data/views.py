@@ -79,9 +79,7 @@ def take(request):
     # print(graph.nodes)
     dijkstra=DijkstraAlgorithm(graph)
     path=dijkstra.findRoute(s,e)
-    
-    print("path")
-    print(path)
+    path = [p.id for p in path]
     
     return HttpResponse(path)
 
